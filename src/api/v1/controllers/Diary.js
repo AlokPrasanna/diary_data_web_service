@@ -97,9 +97,66 @@ const GetDiaryDataById = async(req , res) => {
     }
 }
 
+// -------------------- Function to Update diary data --------------------
+const UpdateDiaryData = async(req , res) => {
+    // Get Diary Id by param
+    const { diaryId } = req.params;
+
+    // Request body
+    const {
+        date,
+        time,
+        note
+    } = req.body;
+    try {
+       // Validate request body
+       if (!date || !time || !note) {
+            return res.status(400).json({
+                status: false,
+                error: {
+                    message: "All fields (date, time, note) are required!",
+                },
+            });
+        }
+
+        // Check if the Diary ID exists and update the data
+        const updatedDiary = await DiaryModel.findOneAndUpdate(
+            { _id: diaryId }, 
+            { date, time, note },
+            { new: true } 
+        );
+
+        if (!updatedDiary) {
+            return res.status(404).json({
+                status: false,
+                error: {
+                    message: "No diary entry found for the provided ID!",
+                },
+            });
+        }
+
+       return res.status(200).json({
+        status:true,
+        data:updatedDiary,
+        success:{
+            message:"Update data success!"
+        }
+       });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            status:false,
+            error:{
+                message:"Can not update data because server error!"
+            }
+        });
+    }
+}
+
 
 module.exports = {
     SaveDiary,
     GetAllData,
     GetDiaryDataById,
+    UpdateDiaryData,
 };
