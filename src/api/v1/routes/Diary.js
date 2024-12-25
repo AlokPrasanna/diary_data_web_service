@@ -5,6 +5,7 @@ const express = require("express");
 const {
     SaveDiary,
     GetAllData,
+    GetDiaryDataById,
 } = require("../controllers");
 
 // ---------- Initilaize the Router ----------
@@ -16,6 +17,9 @@ router.post("/save" , SaveDiary);
 
 // Get All data
 router.get("/all" , GetAllData);
+
+// Get Data By Id
+router.get("/one/:diaryId" , GetDiaryDataById);
 
 
 module.exports = router;
