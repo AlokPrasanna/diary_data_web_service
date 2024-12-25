@@ -4,6 +4,7 @@ require("dotenv/config");
 
 // -------------------- Custom Library and Modules -------------------
 const Config = require("./config");
+const { ConnectDatabase } = require("./api/v1/libraries")
 
 // -------------------- Third-pary modules component and modules --------------------
 const app = express();
@@ -31,4 +32,7 @@ app.use((req , res) => {
 // -------------------- Initialize Connection --------------------
 app.listen(PORT, () => {
     console.log(`Server is running at ${PORT} port`);
+    ConnectDatabase()
+        .then(() => console.log("Connected to Database!"))
+        .catch((err) => console.error(err))
 });
