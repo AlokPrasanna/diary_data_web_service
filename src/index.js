@@ -4,7 +4,8 @@ require("dotenv/config");
 
 // -------------------- Custom Library and Modules -------------------
 const Config = require("./config");
-const { ConnectDatabase } = require("./api/v1/libraries")
+const { ConnectDatabase } = require("./api/v1/libraries");
+const { DiaryRoutes } = require("./api/v1/routes");
 
 // -------------------- Third-pary modules component and modules --------------------
 const app = express();
@@ -20,6 +21,9 @@ app.get("/" , (req, res) => {
         message: "Welcome to the server!"
     });
 });
+
+// -------------------- Diary Routes --------------------
+app.use("/api/diary" , DiaryRoutes);
 
 //-------------------- Error Route --------------------
 app.use((req , res) => {
