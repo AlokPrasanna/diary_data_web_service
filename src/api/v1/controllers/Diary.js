@@ -45,10 +45,47 @@ const GetAllData = async(req , res) => {
 
         return res.status(200).json({
             status: true,
+            data:AllData,
             success:{
                 message:"Data fetch success!"
             }
         });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            status:false,
+            error:{
+                message:"Can not fetch data because server error!"
+            }
+        });
+    }
+};
+
+// -------------------- Function to Get Data by Id --------------------
+const GetDiaryDataById = async(req , res) => {
+    // Get Diary Id by param
+    const { diaryId } = req.params;
+    try {
+       // Check Id available or not
+       const DiaryData = await DiaryModel.findOne({_id:diaryId}).exec();
+       
+       if(!DiaryData){
+        return res.status(404).json({
+            status:false,
+            error:{
+                message:"No data found for provided Id!"
+            }
+        });
+       }
+
+        return res.status(200).json({
+            status: true,
+            data:DiaryData,
+            success:{
+                message:"Data fetch success!"
+            }
+        });
+
     } catch (error) {
         console.log(error);
         return res.status(500).json({
@@ -64,4 +101,5 @@ const GetAllData = async(req , res) => {
 module.exports = {
     SaveDiary,
     GetAllData,
+    GetDiaryDataById,
 };
