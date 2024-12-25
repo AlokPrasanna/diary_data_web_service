@@ -151,7 +151,46 @@ const UpdateDiaryData = async(req , res) => {
             }
         });
     }
-}
+};
+
+// -------------------- Function to delete diary data --------------------
+const DeleteDiaryData = async(req , res) => {
+    // Get Diary Id by param
+    const { diaryId } = req.params;
+
+    try {
+      // Check Id available or not
+      const DiaryData = await DiaryModel.findOne({_id:diaryId}).exec();
+       
+      if(!DiaryData){
+       return res.status(404).json({
+           status:false,
+           error:{
+               message:"No data found for provided Id!"
+           }
+       });
+      }  
+
+      const DeleteData = await DiaryData.deleteOne();
+
+      if(DeleteData){
+        return res.status(200).json({
+            status:true,
+            success:{
+                message:"Data delete Success!"
+            }
+        });
+      }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            status:false,
+            error:{
+                message:"Can not update data because server error!"
+            }
+        }); 
+    }
+};
 
 
 module.exports = {
@@ -159,4 +198,5 @@ module.exports = {
     GetAllData,
     GetDiaryDataById,
     UpdateDiaryData,
+    DeleteDiaryData,
 };

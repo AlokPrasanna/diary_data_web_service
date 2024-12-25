@@ -4,6 +4,7 @@ const {
     GetAllData,
     GetDiaryDataById,
     UpdateDiaryData,
+    DeleteDiaryData,
 } = require("./Diary");
 
 module.exports = {
@@ -11,4 +12,5 @@ module.exports = {
     GetAllData,
     GetDiaryDataById,
     UpdateDiaryData,
+    DeleteDiaryData,
 }
