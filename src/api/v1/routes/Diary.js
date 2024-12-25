@@ -7,6 +7,7 @@ const {
     GetAllData,
     GetDiaryDataById,
     UpdateDiaryData,
+    DeleteDiaryData,
 } = require("../controllers");
 
 // ---------- Initilaize the Router ----------
@@ -24,6 +25,9 @@ router.get("/one/:diaryId" , GetDiaryDataById);
 
 // Update data
 router.put("/update/:diaryId" , UpdateDiaryData);
+
+// Delete data
+router.delete("/delete/:diaryId" , DeleteDiaryData);
 
 
 module.exports = router;
